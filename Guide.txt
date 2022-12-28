@@ -1,0 +1,8 @@
+v-html replaces valriables with html tags
+v-bind:attribute replaces the value of attributes with variable
+v-on:action calls method on action
+v-on:action.prevent a modifier to prevent default action
+v-once only loaded once
+v-model 2way binding
+Methods - primarly for event binding; reevaluated all the time
+Computed - for data binding

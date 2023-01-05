@@ -37,6 +37,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      delResource: this.removeRes
     };
   },
   data() {
@@ -72,6 +73,10 @@ export default {
     setSelectedTab(tab) {
       this.selectedTab = tab;
     },
+    removeRes(id){
+      const resIndex = this.storedResources.findIndex(res => res.id === id);
+      this.storedResources.splice(resIndex, 1);
+    }
   },
 };
 </script>

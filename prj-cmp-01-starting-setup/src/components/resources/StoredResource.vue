@@ -3,6 +3,7 @@
     <resource-info
       v-for="rsrc in resources"
       :key="rsrc.id"
+      :id="rsrc.id"
       :title="rsrc.title"
       :description="rsrc.description"
       :link="rsrc.link"

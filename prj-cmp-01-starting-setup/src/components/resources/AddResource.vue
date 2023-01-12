@@ -1,4 +1,14 @@
 <template>
+  <base-dialog v-if="errorFlag" title="Fix errors" @close="errorFlag = false">
+    <template #default>
+      <p>Oops.. at least one input value is invalid</p>
+      <p>{{ errorMessage }}</p>
+    </template>
+    <template #actions>
+      <base-button @click="errorFlag = false">Okay</base-button>
+    </template>
+  </base-dialog>
+
   <base-card>
     <form @submit.prevent="submitData">
       <div class="form-control">
@@ -7,7 +17,12 @@
       </div>
       <div class="form-control">
         <label for="description">Description</label>
-        <textarea id="description" name="description" rows="3" ref="newDescription"></textarea>
+        <textarea
+          id="description"
+          name="description"
+          rows="3"
+          ref="newDescription"
+        ></textarea>
       </div>
       <div class="form-control">
         <label for="link">Link</label>
@@ -15,25 +30,36 @@
       </div>
       <div>
         <base-button type="submit">Add Resource</base-button>
-        </div>
+      </div>
     </form>
   </base-card>
 </template>
 
 <script>
 export default {
-    inject: ['addResource'],
-    methods: {
-        submitData(){
-            const enteredTitle = this.$refs.newTitle.value;
-            const enteredDescription =  this.$refs.newDescription.value;
-            const enteredLink = this.$refs.newLink.value;
-
-            this.addResource(enteredTitle, enteredDescription, enteredLink);
-
-        }
-    }
-}
+  inject: ['addResource'],
+  data() {
+    return {
+      errorFlag: false,
+      errorMessage: '',
+    };
+  },
+  methods: {
+    submitData() {
+      const enteredTitle = this.$refs.newTitle.value;
+      const enteredDescription = this.$refs.newDescription.value;
+      const enteredLink = this.$refs.newLink.value;
+      if (
+        enteredTitle.trim() === '' ||
+        enteredDescription.trim() === '' ||
+        enteredLink.trim() === ''
+      ) {
+        this.errorFlag = true;
+        this.errorMessage = 'Please fill the all the fields of your resource';
+      } else this.addResource(enteredTitle, enteredDescription, enteredLink);
+    },
+  },
+};
 </script>
 
 
